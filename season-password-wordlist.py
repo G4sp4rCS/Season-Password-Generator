@@ -23,14 +23,30 @@ def generate_passwords(yearInit, yearEnd):
                 print(f'{season.capitalize()}{year}')
                 print(f'{season.capitalize()}{year}{special_char}')
 
-if __name__ == '__main__':
-    if len(sys.argv) != 3:
-        print('Usage: python3 generate.py <year_init> <year_end>')
-        sys.exit(1)
+def generate_passwords_with_months(yearInit, yearEnd):
+    months = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december']
+    special_chars = ['!', '@', '#', '$', '%', '^', '&', '*']
+    years = list(range(yearInit, yearEnd + 1))
+    for month in months:
+        for year in years:
+            for special_char in special_chars:
+                print(f'{month}{year}')
+                print(f'{month}{year}{special_char}')
+                print(f'{month.capitalize()}{year}')
+                print(f'{month.capitalize()}{year}{special_char}')
 
+
+if __name__ == '__main__':
+    if len(sys.argv) != 4:
+        print('Usage: python3 script.py yearInit yearEnd seasons-or-months')
+        sys.exit(1)
     yearInit = int(sys.argv[1])
     yearEnd = int(sys.argv[2])
-
-    generate_passwords(yearInit, yearEnd)
-    # Guardar archivo en un txt en el directorio actual
-    # python3 generate.py 2020 2025 > passwords.txt
+    seasons_or_months = sys.argv[3]
+    if seasons_or_months == 'seasons':
+        generate_passwords(yearInit, yearEnd)
+    elif seasons_or_months == 'months':
+        generate_passwords_with_months(yearInit, yearEnd)
+    else:
+        print('Invalid option')
+        sys.exit(1)
